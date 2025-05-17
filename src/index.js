@@ -1,9 +1,11 @@
 // require('dotenv').config({path: './env'});
+import app from './app.js'
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import { db_name} from './constants.js';
-
+import express from 'express'
 import connectDB from './db/db1.js';
+//  const app= express();
 dotenv.config({
     path: './.env'
 })
@@ -16,6 +18,10 @@ connectDB()
 
 .catch((error)=>{
     console.log("mongodb error failed",error);
+})
+
+app.get('/', async(req,res)=>{
+res.send("hello")
 })
 /*
 import express from 'express';
