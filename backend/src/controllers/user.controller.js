@@ -266,7 +266,7 @@ return res
 .json(200,user,"Avatar image updated successfully")
 })
 
-const updateCoverImage=asyncHandler(async(req,res)=>{
+const  updateCoverImage=asyncHandler(async(req,res)=>{
   const coverImageLocalPath=req.user?.path
 if(!coverImageLocalPath){
   throw new ApiError(400,"Cover Image is required")
@@ -286,7 +286,52 @@ return res
 
 
 })
+const getUserChannelProfile=asyncHandler(async(req,res)=>{
+const {username} =req.params
+if(!username?.trim()){
+throw new ApiError(400,"Username is missing")
+}
+const channel=await User.aggregate([{
+  $match:{
+    username:username?.toLowerCase(),
+    
+  }
+  
+},
+{
+  lookup:{
+    from:"subscriptions",
+    localField:"_id",
+    foreignField:"channel",
+    as:"subscribers"
 
+  }
+},
+{
+  $lookup: {
+    from: "subscriptions",
+    localField: "_id",
+    foreignField: "subscriber",
+    as: "subscribedTo"
+  }
+},
+{
+  $addFields: {
+    subscribersCount: {
+      $size: "subscribers"
+    },
+    channelsSubscribedToCount: {
+      $size: 
+        "subscribedTo"
+      
+    },
+    
+  }
+}
+
+])
+
+})
 
 
  export {registerUser,
@@ -297,5 +342,6 @@ return res
    getCurrentUser,
    updateAccountDetails,
    updateUserAvatar,
-   updateCoverImage
+   updateCoverImage,
+   getUserChannelProfile
  }
