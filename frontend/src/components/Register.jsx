@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import './register.css'
+
+
 
 function Register() {
   const [fullName, setFullName] = useState('');
@@ -70,52 +73,63 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <input
-          type="text"
-          placeholder="Full Name"
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <label>
-          Avatar (required):
-          <input type="file" accept="image/*" onChange={handleAvatarChange} required />
-        </label>
-        <label>
-          Cover Image (optional):
-          <input type="file" accept="image/*" onChange={handleCoverImageChange} />
-        </label>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Registering...' : 'Register'}
-        </button>
-      </form>
+    <>
+   
+    
+     <div className="vt-background">
+      <a href="/login" className="vt-button vt-login-top-right">Login</a>
+      <div className="vt-form-container">
+        <h2>Register</h2>
+        {error && <p className="vt-message error">{error}</p>}
+        {success && <p className="vt-message success">{success}</p>}
+        <form className="vt-form" onSubmit={handleSubmit} encType="multipart/form-data">
+          <input
+            className="vt-input"
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
+          <input
+            className="vt-input"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            className="vt-input"
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            className="vt-input"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <label>
+            Avatar (required):
+            <input type="file" accept="image/*" onChange={handleAvatarChange} required />
+          </label>
+          <label>
+            Cover Image (optional):
+            <input type="file" accept="image/*" onChange={handleCoverImageChange} />
+          </label>
+          <button className="vt-button" type="submit" disabled={loading}>
+            {loading ? 'Registering...' : 'Register'}
+          </button>
+        </form>
+      </div>
     </div>
+    </>
   );
 }
 

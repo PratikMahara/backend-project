@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./login.css";
 function Login() {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -40,30 +40,44 @@ function Login() {
   };
 
   return (
-     <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        placeholder="Email (optional)"
-      />
-      <input
-        type="text"
-        value={username}
-        onChange={e => setUsername(e.target.value)}
-        placeholder="Username (optional)"
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        placeholder="Password"
-        required
-      />
-      <button type="submit">Login</button>
-      {error && <p style={{color: 'red'}}>{error}</p>}
-      {success && <p style={{color: 'green'}}>Login Successful!</p>}
-    </form>
+    <div className="vt-background">
+      <div className="vt-form-container">
+        <div className="vt-logo">
+          <svg width="32" height="32" viewBox="0 0 32 32">
+            <rect width="32" height="32" rx="8" fill="#ff414d"/>
+            <polygon points="12,9 25,16 12,23" fill="#fff"/>
+          </svg>
+          VideoTube
+        </div>
+        <form className="vt-form" onSubmit={handleSubmit}>
+          <input
+            className="vt-input"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Email (optional)"
+          />
+          <input
+            className="vt-input"
+            type="text"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+            placeholder="Username (optional)"
+          />
+          <input
+            className="vt-input"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <button className="vt-button" type="submit">Login</button>
+          {error && <p className="vt-message error">{error}</p>}
+          {success && <p className="vt-message success">Login Successful!</p>}
+        </form>
+      </div>
+    </div>
   );
 }
 
