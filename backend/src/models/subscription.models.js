@@ -5,7 +5,7 @@ subscriber:{
     ref:"User"
 },
 channel:{
-type:Schema.Types.ObjectId,//pne to whon 'subscriber ' are subscribing
+type:Schema.Types.ObjectId,//one to whon 'subscriber ' are subscribing
 ref:"User"
 }
  },{timestamps:true})
