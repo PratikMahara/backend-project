@@ -28,7 +28,7 @@ function Login() {
       const response = await fetch('https://backend-project-1-jt64.onrender.com/api/users/login', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
+        
         body: JSON.stringify({ email, username, password })
       });
       if (response.ok) {
