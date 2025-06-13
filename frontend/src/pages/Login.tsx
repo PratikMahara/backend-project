@@ -16,38 +16,37 @@ function Login() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess(false);
-    if (!(email || username) || !password) {
-      setError("Please fill all credentials");
-      setSuccess(false);
-      return;
-    }
-    try {
-      const response = await fetch('https://backend-project-1-jt64.onrender.com/api/users/login', {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        
-  credentials: "include",
-        body: JSON.stringify({ email, username, password })
+  e.preventDefault();
+  setError('');
+  setSuccess(false);
+  if (!(email || username) || !password) {
+    setError("Please fill all credentials");
+    return;
+  }
+  try {
+    const response = await fetch('https://backend-project-1-jt64.onrender.com/api/users/login', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include", // important for cookies
+      body: JSON.stringify({ email, username, password })
+    });
+
+    if (response.ok) {
+      setSuccess(true);
+      toast.success("Login successful!", {
+        description: "Welcome back!",
+        duration: 3000,
       });
-      if (response.ok) {
-        setSuccess(true);
-        toast.success("Login successful!", {
-          description: "Welcome back!",
-          duration: 3000,
-        }); // Show Sonner toast
-        // No navigation
-         const data = await response.json();
-        localStorage.setItem('accessToken', data.accessToken);
-      } else {
-        setError("Login Failed");
-      }
-    } catch (error) {
-      setError("Login Explicitly Terminated");
+      // no localStorage.setItem('accessToken', ...) here
+      // backend sets cookies, browser manages them
+    } else {
+      setError("Login Failed");
     }
-  };
+  } catch (error) {
+    setError("Login Explicitly Terminated");
+  }
+};
+
 
   return (
     <>
