@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Play, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '@/components/Navbar';
 function Register() {
    const navigate=useNavigate();
   const [fullName, setFullName] = useState('');
@@ -88,6 +89,8 @@ function Register() {
   };
 
   return (
+    <>
+    <Navbar/>
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/20 to-background flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
@@ -236,6 +239,7 @@ function Register() {
         </Card>
       </div>
     </div>
+    </>
   );
 }
 

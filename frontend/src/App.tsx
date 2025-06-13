@@ -10,7 +10,6 @@ import Register from "./pages/Register";
 import Upload from "./pages/Upload";
 import VideoPlayer from "./pages/VideoPlayer";
 import NotFound from "./pages/NotFound";
-
 const queryClient = new QueryClient();
 
 const App = () => (
