@@ -7,7 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload as UploadIcon, Play, Film, ArrowLeft, Image as ImageIcon } from 'lucide-react';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Upload = () => {
