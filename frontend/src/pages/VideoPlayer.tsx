@@ -34,7 +34,7 @@ const VideoPlayer = () => {
         setError(null);
 
         // Fetch the main video details
-        const resVideo = await fetch(`http://localhost:8000/api/videos/${id}`);
+        const resVideo = await fetch(`https://backend-project-1-jt64.onrender.com/api/videos/${id}`);
         if (!resVideo.ok) throw new Error('Failed to fetch video');
         const videoData = await resVideo.json();
 
@@ -46,7 +46,7 @@ const VideoPlayer = () => {
         setVideo(mainVideo);
 
         // Fetch all videos for related videos
-        const resAll = await fetch('http://localhost:8000/api/videos/videoss');
+        const resAll = await fetch('https://backend-project-1-jt64.onrender.com/api/videos/videoss');
         if (!resAll.ok) throw new Error('Failed to fetch related videos');
         const allVideosData = await resAll.json();
 
