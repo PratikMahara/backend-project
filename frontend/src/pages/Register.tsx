@@ -59,7 +59,7 @@ function Register() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/users/register', {
+      const response = await fetch('https://backend-project-1-jt64.onrender.com/api/users/register', {
         method: 'POST',
         body: formData,
       });

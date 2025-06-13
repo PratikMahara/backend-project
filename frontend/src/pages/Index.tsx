@@ -11,7 +11,7 @@ const Index = () => {
 
  useEffect(() => {
   const fetchVideos = async () => {
-    const response = await fetch('http://localhost:8000/api/videos/videoss');
+    const response = await fetch('https://backend-project-1-jt64.onrender.com/api/videos/videoss');
     const data = await response.json();
     setVideos(
       data.data.map(video => ({

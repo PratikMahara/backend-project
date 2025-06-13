@@ -56,7 +56,7 @@ navigate('/login');
   return; // stop executionS
 }
 
-      const response = await axios.post('http://localhost:8000/api/videos/upload', data, {
+      const response = await axios.post('https://backend-project-1-jt64.onrender.com/api/videos/upload', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
