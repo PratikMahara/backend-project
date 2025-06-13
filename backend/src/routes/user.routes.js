@@ -16,6 +16,12 @@ router.route("/register").post(
 
 
 router.route("/login").post(loginUser);
+router.get('/me', verifyJWT, (req, res) => {
+  res.status(200).json({
+    success: true,
+    user: req.user,
+  });
+});
 router.route("/logout").post(verifyJWT,logoutUser)
 router.route("/refresh-token").post(refreshAccessToken)
 export default router;
