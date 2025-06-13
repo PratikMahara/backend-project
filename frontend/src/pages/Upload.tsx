@@ -40,35 +40,46 @@ const Upload = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+
     try {
+      // Step 1: Check login status by calling a protected endpoint that uses cookie JWT
+      const authCheck = await fetch('https://backend-project-1-jt64.onrender.com/api/users/me', {
+        method: 'GET',
+        credentials: 'include', // important: send cookies
+      });
+
+      if (!authCheck.ok) {
+        alert("You need to log in to upload a video.");
+        setLoading(false);
+        navigate('/login');
+        return;
+      }
+
+      // Step 2: Prepare form data for upload
       const data = new FormData();
       data.append('title', formData.title);
       data.append('description', formData.description);
       data.append('duration', formData.duration);
       if (videoFile) data.append('video', videoFile);
       if (thumbnailFile) data.append('thumbnail', thumbnailFile);
-     const token = localStorage.getItem('accessToken');
-       if (!token) {
-  alert("You need to log in to upload a video.");
-setLoading(false); // stop loading state
-navigate('/login');
-  return; // stop executionS
-}
 
-      const response = await axios.post('https://backend-project-1-jt64.onrender.com/api/videos/upload', data, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-         
-          // Add auth header if needed
-        }, withCredentials: true
-      });
-    
+      // Step 3: Upload video with axios including cookies (no Authorization header)
+      const response = await axios.post(
+        'https://backend-project-1-jt64.onrender.com/api/videos/upload',
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: true, // send cookies
+        }
+      );
 
       if (response.data.success) {
         alert("Video Uploaded Successfully");
       }
+
     } catch (err: any) {
-      
       setError(err.response?.data?.message || 'Upload failed. Please try again.');
     } finally {
       setLoading(false);
