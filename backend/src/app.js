@@ -3,7 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 const app=express()
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
+    origin:"https://backend-project-frontend-662c.onrender.com",
     credentials:true
 }))
 
