@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -17,8 +16,9 @@ const Navbar = () => {
           </Link>
           
           <div className="flex items-center space-x-4">
+            {/* Upload button: icon + text on all screen sizes */}
             <Link to="/upload">
-              <Button variant="outline" size="sm" className="hidden sm:flex items-center space-x-2">
+              <Button variant="outline" size="sm" className="flex items-center space-x-2">
                 <Upload className="h-4 w-4" />
                 <span>Upload</span>
               </Button>
