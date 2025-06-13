@@ -60,7 +60,7 @@ navigate('/login');
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
           // Add auth header if needed
-        },withCredentials: true,
+        },
       });
     
 
