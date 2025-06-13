@@ -58,9 +58,9 @@ navigate('/login');
       const response = await axios.post('https://backend-project-1-jt64.onrender.com/api/videos/upload', data, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+         
           // Add auth header if needed
-        },
+        }, withCredentials: true
       });
     
 
