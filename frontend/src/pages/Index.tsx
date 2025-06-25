@@ -40,6 +40,32 @@ const Index = () => {
   }
 
   return (
+    <>
+      <div className="relative w-full overflow-hidden py-3 mb-8 rounded-lg bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg">
+        <div
+          className="animate-marquee whitespace-nowrap text-white font-semibold text-lg tracking-wide"
+          style={{
+            animation: "marquee 18s linear infinite",
+          }}
+        >
+          The Server is Slow to load the Video Until then Register and Login  &nbsp;
+          🚀 &nbsp; Stay tuned for updates! &nbsp; 🌟 &nbsp;
+        </div>
+        <style jsx>{`
+          @keyframes marquee {
+            0% {
+              transform: translateX(100%);
+            }
+            100% {
+              transform: translateX(-100%);
+            }
+          }
+          .animate-marquee {
+            display: inline-block;
+            min-width: 100%;
+          }
+        `}</style>
+      </div>
     <div className="min-h-screen bg-background">
       <Navbar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -65,6 +91,7 @@ const Index = () => {
         </div>
       </main>
     </div>
+      </>
   );
 };
 
