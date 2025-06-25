@@ -8,20 +8,33 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [videos, setVideos] = useState([]);
   const [error, setError] = useState(null);
-
+  const[search,setSearch]=useState("");
  useEffect(() => {
-  const fetchVideos = async () => {
-    const response = await fetch('https://backend-project-1-jt64.onrender.com/api/videos/videoss');
-    const data = await response.json();
-    setVideos(
-      data.data.map(video => ({
-        ...video,
-        id: video._id // Map _id to id
-      }))
-    );
-  };
-  fetchVideos();
-}, []);
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch("https://backend-project-1-jt64.onrender.com/api/videos/videoss");
+        const data = await response.json();
+        setVideos(
+          data.data.map((video) => ({
+            ...video,
+            id: video._id, // Map _id to id
+          }))
+        );
+        setIsLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setIsLoading(false);
+      }
+    };
+    fetchVideos();
+  }, []);
+
+  // Filter videos based on search query
+  const filteredVideos = videos.filter(
+    (video) =>
+      video.title.toLowerCase().includes(search.toLowerCase()) ||
+      video.author.toLowerCase().includes(search.toLowerCase())
+  );
 
 
   if (isLoading) {
@@ -67,7 +80,7 @@ const Index = () => {
         `}</style>
       </div>
     <div className="min-h-screen bg-background">
-      <Navbar />
+      <Navbar search={search} setSearch={setSearch} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Welcome to VideoTube</h1>
