@@ -56,51 +56,52 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar search={search} setSearch={setSearch} />
-      
-      {/* Marquee Banner */}
-      <div className="relative w-full overflow-hidden py-3 mb-8 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg">
-        <div 
-          className="animate-marquee whitespace-nowrap text-white font-semibold text-lg tracking-wide"
-          style={{ animation: 'marquee 18s linear infinite' }}
-        >
-          The Server is Slow to load the Video Until then Register and Login 🚀 Stay tuned for updates! 🌟
-        </div>
-        <style jsx>{`
-          @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-          }
-          .animate-marquee {
-            display: inline-block;
-            min-width: 100%;
-          }
-        `}</style>
-      </div>
-      
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Welcome to VideoTube</h1>
-          <p className="text-muted-foreground">Discover amazing videos from creators worldwide</p>
-        </div>
-        
-        {/* Video Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredVideos.map(video => (
-            <VideoCard
-              key={video.id}
-              id={video.id}
-              title={video.title}
-              thumbnail={video.thumbnail}
-              author={video.author}
-              views={video.views}
-              duration={video.duration}
-              uploadDate={video.uploadDate}
-            />
-          ))}
-        </div>
-      </main>
+  {/* Marquee Banner at the very top */}
+  <div className="relative w-full overflow-hidden py-3 mb-8 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg">
+    <div 
+      className="animate-marquee whitespace-nowrap text-white font-semibold text-lg tracking-wide"
+      style={{ animation: 'marquee 18s linear infinite' }}
+    >
+      The Server is Slow to load the Video Until then Register and Login 🚀 Stay tuned for updates! 🌟
     </div>
+    <style jsx>{`
+      @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+      }
+      .animate-marquee {
+        display: inline-block;
+        min-width: 100%;
+      }
+    `}</style>
+  </div>
+
+  {/* Navbar below Marquee */}
+  <Navbar search={search} setSearch={setSearch} />
+
+  <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="mb-8">
+      <h1 className="text-3xl font-bold text-foreground mb-2">Welcome to VideoTube</h1>
+      <p className="text-muted-foreground">Discover amazing videos from creators worldwide</p>
+    </div>
+    
+    {/* Video Grid */}
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      {filteredVideos.map(video => (
+        <VideoCard
+          key={video.id}
+          id={video.id}
+          title={video.title}
+          thumbnail={video.thumbnail}
+          author={video.author}
+          views={video.views}
+          duration={video.duration}
+          uploadDate={video.uploadDate}
+        />
+      ))}
+    </div>
+  </main>
+</div>
   );
 };
 
