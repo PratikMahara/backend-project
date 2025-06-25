@@ -16,6 +16,8 @@ interface Video {
   description: string;
   createdAt: string;
   videoFile: string;
+  likes?: number;
+  dislikes?: number;
 }
 
 const VideoPlayer = () => {
@@ -24,6 +26,11 @@ const VideoPlayer = () => {
   const [relatedVideos, setRelatedVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  
+  // Like/Dislike state
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [userReaction, setUserReaction] = useState<'like' | 'dislike' | null>(null);
 
   useEffect(() => {
     if (!id) return;
@@ -42,8 +49,12 @@ const VideoPlayer = () => {
         const mainVideo = {
           ...videoData.data,
           id: videoData.data._id || videoData.data.id,
+          likes: videoData.data.likes || 0,
+          dislikes: videoData.data.dislikes || 0,
         };
         setVideo(mainVideo);
+        setLikes(mainVideo.likes);
+        setDislikes(mainVideo.dislikes);
 
         // Fetch all videos for related videos
         const resAll = await fetch('https://backend-project-1-jt64.onrender.com/api/videos/videoss');
@@ -69,6 +80,38 @@ const VideoPlayer = () => {
 
     fetchVideo();
   }, [id]);
+
+  const handleLike = () => {
+    if (userReaction === 'like') {
+      setLikes(likes - 1);
+      setUserReaction(null);
+    } else {
+      const newLikes = userReaction === 'dislike' ? likes + 1 : likes + 1;
+      setLikes(newLikes);
+      
+      if (userReaction === 'dislike') {
+        setDislikes(dislikes - 1);
+      }
+      
+      setUserReaction('like');
+    }
+  };
+
+  const handleDislike = () => {
+    if (userReaction === 'dislike') {
+      setDislikes(dislikes - 1);
+      setUserReaction(null);
+    } else {
+      const newDislikes = userReaction === 'like' ? dislikes + 1 : dislikes + 1;
+      setDislikes(newDislikes);
+      
+      if (userReaction === 'like') {
+        setLikes(likes - 1);
+      }
+      
+      setUserReaction('dislike');
+    }
+  };
 
   if (loading) {
     return (
@@ -123,7 +166,7 @@ const VideoPlayer = () => {
               <h1 className="text-2xl font-bold text-foreground">{video.title}</h1>
 
               {/* Optional author, views, uploadDate if available */}
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center space-x-4">
                   {video.author && (
                     <div className="flex items-center space-x-2">
@@ -142,14 +185,24 @@ const VideoPlayer = () => {
                   )}
                 </div>
 
-                <div className="flex items-center space-x-2">
-                  <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    variant={userReaction === 'like' ? "default" : "outline"}
+                    size="sm"
+                    className="flex items-center space-x-2"
+                    onClick={handleLike}
+                  >
                     <ThumbsUp className="h-4 w-4" />
-                    <span>Like</span>
+                    <span>Like {likes}</span>
                   </Button>
-                  <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Button
+                    variant={userReaction === 'dislike' ? "default" : "outline"}
+                    size="sm"
+                    className="flex items-center space-x-2"
+                    onClick={handleDislike}
+                  >
                     <ThumbsDown className="h-4 w-4" />
-                    <span>Dislike</span>
+                    <span>Dislike {dislikes}</span>
                   </Button>
                   <Button variant="outline" size="sm" className="flex items-center space-x-2">
                     <Share2 className="h-4 w-4" />
